@@ -138,17 +138,17 @@ spec:
                     ./gradlew testClasses --no-daemon
                 '''
             }
-            stage('Sonar scan') {
-                sh '''#!/bin/bash
+            // stage('Sonar scan') {
+            //     sh '''#!/bin/bash
 
-                if [[ -z "${SONARQUBE_URL}" ]]; then
-                  echo "Skipping Sonar Qube step as Sonar Qube not installed or configured"
-                  exit 0
-                fi
+            //     if [[ -z "${SONARQUBE_URL}" ]]; then
+            //       echo "Skipping Sonar Qube step as Sonar Qube not installed or configured"
+            //       exit 0
+            //     fi
 
-                ./gradlew -Dsonar.login=${SONARQUBE_USER} -Dsonar.password=${SONARQUBE_PASSWORD} -Dsonar.host.url=${SONARQUBE_URL} sonarqube
-                '''
-            }
+            //     ./gradlew -Dsonar.login=${SONARQUBE_USER} -Dsonar.password=${SONARQUBE_PASSWORD} -Dsonar.host.url=${SONARQUBE_URL} sonarqube
+            //     '''
+            // }
         }
         container(name: 'ibmcloud', shell: '/bin/bash') {
             stage('Build image') {
@@ -234,9 +234,9 @@ spec:
                     PORT='80'
 
                     # sleep for 10 seconds to allow enough time for the server to start
-                    sleep 30
+                    sleep 60
 
-                    if [ $(curl -sL -w "%{http_code}\\n" "http://${INGRESS_HOST}:${PORT}/health" -o /dev/null --connect-timeout 3 --max-time 5 --retry 3 --retry-max-time 30) == "200" ]; then
+                    if [ $(curl -sL -w "%{http_code}\\n" "http://${INGRESS_HOST}:${PORT}/health" -o /dev/null --connect-timeout 3 --max-time 5 --retry 3 --retry-max-time 60) == "200" ]; then
                         echo "Successfully reached health endpoint: http://${INGRESS_HOST}:${PORT}/health"
                     echo "====================================================================="
                         else
