@@ -31,8 +31,8 @@ ingress:
   subdomain: containers.appdomain.cloud
   path: "/"
 
-cloudantBinding: mooc-one-ocp-cloudant
-databaseName: inventory-dev-msm
+cloudantBinding: "mooc-one-ocp-cloudant"
+databaseName: "inventory-dev-msm"
 #  tlsSecretName: ""
 
 
